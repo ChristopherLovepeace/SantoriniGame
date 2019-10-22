@@ -20,6 +20,11 @@ app.post('/', function(req, res){
     //this is bad, but it's just testing and we will change it later :)
 });
 
+app.get('/', function (req, res) {
+    // code here... 
+    res.status(200).send("hello from GET"); //send response    
+});
+
 app.listen(app.get('port'), function(){
     console.log(`server open on port: ${app.get('port')}`)
 });

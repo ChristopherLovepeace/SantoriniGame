@@ -1,9 +1,11 @@
-.container{
-    padding: 10px;
-    background-color: lightgreen;
-    margin: 5% auto 20% auto;
-    border: 2px dashed brown;
-    width: 30%;
+body{
+    background-color: cornflowerblue;
+}
+select{
+    position: relative;
+    font-size: medium;
+    border-radius: 2px;
+    z-index: 1;
 }
 p, h2, label{
     color: darkslategray;
@@ -16,15 +18,38 @@ h1{
     font-size: 5em;
     margin: 0px;
 }
-
 button{
     margin: 5px;
     padding: 5px;
-}
-body{
-    background-color: cornflowerblue;
 }
 hr{
     border: 1px dotted brown;
     margin: 10px;
 }
+#div00{
+    background-color: darkblue;
+    border-radius: 4px;
+    position: absolute;
+    top: 2em;
+    left: 2em;
+    border: 2px solid gray;
+    text-align: center;
+    width: 4em;
+    height: 2em;
+
+}
+.container{
+    padding: 10px;
+    background-color: lightgreen;
+    margin: 5% auto 20% auto;
+    border: 2px dashed brown;
+    width: 30%;
+}
+
+#nameInpHelp, #passInpHelp{
+    size: 11px;
+    color: darkred;
+    margin: 0px;
+}
+
+

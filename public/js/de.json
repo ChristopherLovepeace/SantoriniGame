@@ -1,0 +1,11 @@
+{
+    "NAME" : "Benutzername: ",
+    "PASS" : "Passwort: ",
+    "NO_NAME" : "Bitte geben Sie einen gültigen Benutzernamen ein",
+    "NO_PASS" : "Bitte geben Sie einen gültigen Passwort ein",
+    "LOG_IN" : "Einloggen",
+    "WELCOME" : "Wilkommen in unserer Santorini Implementierung",
+    "SIGN_UP" : "Anmelden",
+    "GUEST" : "Gast-Konto",
+    "NEW" : "Neuer Benutzer?"
+}
