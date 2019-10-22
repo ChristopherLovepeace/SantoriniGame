@@ -22,12 +22,12 @@
             <h2 id="LOG_IN">Log-in</h2>
             <hr>
             <p id="WELCOME">Welcome to our Santorini implementation!</p>
-            <label id="NAME" for="nameInp"><b>Username:</b></label>
+            <label id="NAME" for="nameInp"><Username:</label>
             <br>
             <input type="text" placeholder="Enter Username" id="nameInp" required>
             <p id="nameInpHelp"></p>
             <br>
-            <label id="PASS" for="passInp"><b>Password:</b></label><br>
+            <label id="PASS" for="passInp">Password:</label><br>
             <input type="password" placeholder="Enter Password" id="passInp" required>
             <input type="checkbox" onclick="showPass()">
             <br>
@@ -57,7 +57,7 @@
     let nameInpHelp = document.getElementById("nameInpHelp");
 
     let langCache = {};
-
+    selectLang();
     languages.addEventListener('change', selectLang);
     loginBtn.addEventListener('click', authentifyUser);
 
@@ -66,7 +66,7 @@
         try{
             let data = await fetch(`js/${lang}.json`);
             langCache = await data.json();
-            
+            localStorage.setItem("myLang", JSON.stringify(langCache));
         }catch(err){
             console.log("No such language");
         }
@@ -79,6 +79,8 @@
         SIGN_UP.innerText = langCache.SIGN_UP;
         GUEST.innerText = langCache.GUEST;
         loginBtn.innerText = langCache.LOG_IN;
+        passInpHelp.innerText = langCache.NO_PASS;
+        nameInpHelp.innerText = langCache.NO_NAME;
 
     }
     async function sendUserData(nameInp, passInp){
