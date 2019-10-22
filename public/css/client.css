@@ -1,0 +1,30 @@
+.container{
+    padding: 10px;
+    background-color: lightgreen;
+    margin: 5% auto 20% auto;
+    border: 2px dashed brown;
+    width: 30%;
+}
+p, h2, label{
+    color: darkslategray;
+    text-align: center;
+}
+h1{
+    color: darkslategray;
+    text-align: center;
+    position: relative;
+    font-size: 5em;
+    margin: 0px;
+}
+
+button{
+    margin: 5px;
+    padding: 5px;
+}
+body{
+    background-color: cornflowerblue;
+}
+hr{
+    border: 1px dotted brown;
+    margin: 10px;
+}
