@@ -1,4 +1,5 @@
 {
+    "LANG" : "de",
     "NAME" : "Username: ",
     "PASS" : "Password: ",
     "NO_NAME" : "Please enter a valid username",

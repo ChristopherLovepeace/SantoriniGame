@@ -1,4 +1,5 @@
-{
+{   
+    "LANG" : "de",
     "NAME" : "Benutzername: ",
     "PASS" : "Passwort: ",
     "NO_NAME" : "Bitte geben Sie einen gültigen Benutzernamen ein",
