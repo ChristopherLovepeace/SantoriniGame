@@ -4,37 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Santorini Multi-Player</title>
-    <link rel="stylesheet" href="css/client.css">
 </head>
     
 <body>
+
     <h1>Santorini</h1>
-    <div id="div00" class="module">
-        <div id="div01" class="container">
-            <h2>Log-in</h2>
+    <div id="div01" class="module">
+        <div id="div02" class="container">
+            <h2>Sign-up</h2>
             <hr>
             <p>Welcome to our Santorini implementation!</p>
-            <label for="nameInp"><b>Username:</b></label><br>
-            <input type="text" placeholder="Enter Username" id="nameInp" required>
+            <label for="nameInp"><b>Username:</b></label>
             <br>
-            <label for="passInp"><b>Password: </b></label><br>
+            <input type="text" placeholder="Enter Username" id="nameInp" required>
+            <p id="nameInpHelp"></p>
+            <br>
+            <label for="emailInp"><b>Email:</b></label><br>
+            <input type="email" placeholder="Enter Email" id="emailInp" required>
+            <p id="emailInpHelp"></p>
+            <br>
+            <label for="passInp"><b>Password:</b></label><br>
             <input type="password" placeholder="Enter Password" id="passInp" required>
             <input type="checkbox" onclick="showPass()">
+            <br>
+            <p id="passInpHelp"></p><br>
             <div id="div02" class="buttons">
-                <button type="submit" id="loginBtn">Log in</button>
+                <button type="submit" id="signupBtn">Sign up</button>
             </div>
-            <p>New user? <a href="#">Sign up</a> or try a <a href="##">Guest</a> account</p>
-    </div>   
+        </div>   
     </div>
+
 </body>
 <script>
+    
     let nameInp = document.getElementById("nameInp");
     let passInp = document.getElementById("passInp");
-    let loginBtn = document.getElementById("loginBtn");
+    let emailInp = document.getElementById("emailInp");
+    let signupBtn = document.getElementById("signupBtn");
+    let passInpHelp = document.getElementById("passInpHelp");
+    let nameInpHelp = document.getElementById("nameInpHelp");
 
-    loginBtn.addEventListener('click', async function(evt){
+    signupBtn.addEventListener("click", function(evt){
+        sendUserData(nameInp, emailInp, passInp);
+    });
+    async function sendUserData(nameInp, emailInp, passInp){
         let updata = {
             name : nameInp.value,
+            email: emailInp.value,
             pass : passInp.value
         }
         let cfg = {
@@ -42,11 +58,13 @@
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(updata)
         }
-        let url = "http://localhost:8080";
-        let resp = await fetch(url, cfg);
-        let data = await resp.text();
+        let url = "http://localhost:8080/users/";
+        let res = await fetch(url, cfg);
+        let data = await res.text();
         console.log(data);
-    });
+    }
+
+    
 
     function showPass(){
         passInp = document.getElementById("passInp");
