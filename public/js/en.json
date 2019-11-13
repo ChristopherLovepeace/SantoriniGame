@@ -1,0 +1,12 @@
+{
+    "LANG" : "de",
+    "NAME" : "Username: ",
+    "PASS" : "Password: ",
+    "NO_NAME" : "Please enter a valid username",
+    "NO_PASS" : "Please enter a valid password",
+    "LOG_IN" : "Log in",
+    "WELCOME" : "Welcome to our Santorini Implementation",
+    "SIGN_UP" : "Sign up",
+    "GUEST" : "Guest account",
+    "NEW" : "New user?"
+}
