@@ -1,17 +1,19 @@
 {
-  "name": "server",
+  "name": "santorinigame",
   "version": "1.0.0",
-  "description": "",
+  "description": "Multiplayer version of the Santorini boardgame",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no tests allowed\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "author": "Lyubo, Linn, Karl",
-  "license": "",
+  "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "crypto": "^1.0.1",
     "express": "^4.17.1",
+    "node": "^12.13.0",
     "pg": "^7.12.1"
   }
 }
