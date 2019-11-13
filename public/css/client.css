@@ -1,30 +1,61 @@
-.container{
-    padding: 10px;
-    background-color: lightgreen;
-    margin: 5% auto 20% auto;
-    border: 2px dashed brown;
-    width: 30%;
+body{
+    background-color: cornflowerblue;
+    
+}
+select{
+    position: relative;
+    font-size: medium;
+    border-radius: 1px;
+    z-index: 1;
 }
 p, h2, label{
     color: darkslategray;
     text-align: center;
 }
 h1{
-    color: darkslategray;
+    color: rgb(255, 255, 255);
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
     text-align: center;
     position: relative;
     font-size: 5em;
     margin: 0px;
 }
-
 button{
-    margin: 5px;
-    padding: 5px;
-}
-body{
-    background-color: cornflowerblue;
+    margin: 1px;
+    padding: 10px;
+    color: rgb(0, 0, 0);
 }
 hr{
-    border: 1px dotted brown;
+    border: 1px dotted rgb(168, 6, 6);
     margin: 10px;
 }
+#div00{
+    background-color: rgb(108, 185, 138);
+    border-radius: 4px;
+    position: absolute;
+    top: 2em;
+    left: 2em;
+    border: 2px double rgb(0, 0, 0);
+    text-align: center;
+    width: 4em;
+    height: 2em;
+
+}
+.container{
+    padding: 20px;
+    background-color: lightgreen;
+    border-radius: 20px;
+    margin: 5% auto 20% auto;
+        border: 5px double black;
+    width: 30%;
+}
+
+ 
+
+#nameInpHelp, #passInpHelp{
+    size: 11px;
+    color: rgb(67, 135, 190);
+    margin: 0px;
+}
+
+
