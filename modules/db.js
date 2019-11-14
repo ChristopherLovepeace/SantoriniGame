@@ -13,44 +13,74 @@ const db = function(dbConnectionString){
             let response = res.rows[0];
             await client.end();//Must end the connection to the server
             return response;
+            
         }catch(err){
             console.log("And error occured: ", err);
         }
+        
     }
-    const getUserByID = async function(userID){
+    const getUserByID = async function(user_id){
         let userData = null;
         try{
-            userData = await runQuery('SELECT * from users where userID=$1',[userID]);
-
+            let sql = 'SELECT * FROM users WHERE user_id = $1';
+            let values = [user_id];
+            userData = await runQuery(sql, values);
         }catch(err){
             console.log(err);
         }
-        return userData;//this gives the return a breakpoint
+        return userData;
     }
-    const createUser = async function(id, email, name, pass){
+    const getUserByName = async function(user_name){
+        let userData = null;
+        try{
+            let sql = 'SELECT * FROM users WHERE user_name = $1';
+            let values = [user_name];
+            userData = await runQuery(sql, values);
+        }catch(err){
+            console.log(err);
+        }
+        return userData;
+    }
+    const createUser = async function(user_id, user_email, user_name, user_pswhash){
+        let userData = null;
         try{
             let sql = 'INSERT INTO users (id, user_id, user_email, user_name, user_pswhash) VALUES(DEFAULT, $1, $2, $3, $4) RETURNING *';
-            let values = [id, email, name, pass];
+            let values = [user_id, user_email, user_name, user_pswhash];
             userData = await runQuery(sql,values);
-
+        }catch(err){
+            console.log(err);
+        }
+        return userData;
+    }
+    const deleteUser = async function(user_id){
+        let userData = null;
+        try{
+            let sql = 'DELETE FROM users WHERE user_id = $1 RETURNING *';
+            let values = [user_id];
+            userData = await runQuery(sql, values);
+        }catch(err){
+            console.log(err);
+        }
+        return userData;
+    }
+    const updateUser = async function(user_id, user_email, user_name, user_pswhash){
+        let userData = null;
+        try{
+            let sql = 'UPDATE users SET user_email = $2, user_name = $3 WHERE user_id = $1 RETURNING *';
+            let values = [user_id, user_email, user_name];
+            userData = await runQuery(sql, values);
         }catch(err){
             console.log(err);
         }
         return userData;
     }
 
-    const deleteUser = async function(userID){
-        
-        try{
-
-        }catch(err){
-
-        }
-
-    }
-
     return {
-        createUser : createUser
+        createUser : createUser,
+        deleteUser : deleteUser,
+        getUserByID : getUserByID,
+        getUserByName : getUserByName,
+        updateUser : updateUser
     }
 }
 
