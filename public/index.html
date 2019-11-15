@@ -11,60 +11,48 @@
     <h1>Santorini</h1>
     <div id="div01" class="module">
         <div id="div02" class="container">
-            <h2>Log-in</h2>
+            <h2>Sign-up</h2>
             <hr>
             <p>Welcome to our Santorini implementation!</p>
             <label for="nameInp"><b>Username:</b></label>
             <br>
-            <input type="text" placeholder="Enter Username" id="nameInp" required minlength="3" maxlength="10" size="20">
+            <input type="text" placeholder="Enter Username" id="nameInp" required>
             <p id="nameInpHelp"></p>
             <br>
+            <label for="emailInp"><b>Email:</b></label><br>
+            <input type="email" placeholder="Enter Email" id="emailInp" required>
+            <p id="emailInpHelp"></p>
+            <br>
             <label for="passInp"><b>Password:</b></label><br>
-            <input type="password" placeholder="Enter Password" id="passInp" required minlength="8" maxlength="20" size="20">
+            <input type="password" placeholder="Enter Password" id="passInp" required>
+
             <input type="checkbox" onclick="showPass()">
             <br>
             <p id="passInpHelp"></p><br>
             <div id="div02" class="buttons">
-                <button type="submit" id="loginBtn">Log in</button>
-                <p>New User? <a href="signup.html">Sign up</a></p>
+                <button type="submit" id="signupBtn">Sign up</button>
             </div>
         </div>   
     </div>
 
 </body>
 <script>
-    if(sessionStorage.getItem("key")!=null){
-        loginBtn.addEventListener("click", function(evt){
-                if(nameInp.checkValidity() && emailInp.checkValidity() && passInp.checkValidity()){
-                    writeHtml(nameInpHelp, "");
-                    writeHtml(passInpHelp, "");
-                    console.log("Data Sent to server");
-                    checkUserData(nameInp, passInp);
-
-                }else{
-                    writeHtml(nameInpHelp, "");
-                    writeHtml(passInpHelp, "");
-                    if(!nameInp.checkValidity()){
-                        nameInpHelp.innerHTML = "Enter a valid name, 3 to 10 characters";
-                    }else{
-                        passInpHelp.innerHTML = "Enter a valid password, 8 to 20 characters";
-                    }
-                }
-        });
-    }else{
-        let div01 = document.getElementById("div01");
-        div01.innerHTML = "Already logged in!";
-    }
+    
     let nameInp = document.getElementById("nameInp");
     let passInp = document.getElementById("passInp");
-    let loginBtn = document.getElementById("loginBtn");
+    let emailInp = document.getElementById("emailInp");
+    let signupBtn = document.getElementById("signupBtn");
     let passInpHelp = document.getElementById("passInpHelp");
     let nameInpHelp = document.getElementById("nameInpHelp");
 
-    
-    async function checkUserData(nameInp, passInp){
+    signupBtn.addEventListener("click", function(evt){
+        sendUserData(nameInp, emailInp, passInp);
+    });
+    async function sendUserData(nameInp, emailInp, passInp){
+
         let updata = {
             name : nameInp.value,
+            email: emailInp.value,
             pass : passInp.value
         }
         let cfg = {
@@ -72,21 +60,10 @@
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(updata)
         }
-        let url = "users/auth";
-        try{
-            let res = await fetch(url, cfg);
-            let data = await res.json();
-
-            if(res.status>202){
-                throw data;
-            }else{
-                console.log("Welcome ", data.name);
-                sessionStorage.setItem("key", data.id);
-                window.location.href="user.html";
-            }
-        }catch(err){
-            console.log(err);
-        }
+        let url = "http://localhost:8080/users/";
+        let res = await fetch(url, cfg);
+        let data = await res.text();
+        console.log(data);
 
     }
 
