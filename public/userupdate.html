@@ -11,9 +11,6 @@
     <h1>Santorini</h1>
     <h2 id="greet"></h2>
     <div id="div01" class="module">
-        <button id="logout">Log Out</button>
-        <button id="update">Update Credentials</button>
-        <button id="game">Start Game</button>
 
     </div>
 
@@ -39,7 +36,7 @@
 
         }
         let cfg = {
-            method: "POST",
+            method: "GET",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(updata)
         }
@@ -60,13 +57,5 @@
 
     
 
-    function showPass(){
-        passInp = document.getElementById("passInp");
-        if(passInp.type == "password"){
-            passInp.type = "text";
-        }else {
-            passInp.type = "password";
-        }
-    };
 </script>
 </html>
