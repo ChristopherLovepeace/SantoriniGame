@@ -25,6 +25,7 @@
             <br>
             <label for="passInp"><b>Password:</b></label><br>
             <input type="password" placeholder="Enter Password" id="passInp" required>
+
             <input type="checkbox" onclick="showPass()">
             <br>
             <p id="passInpHelp"></p><br>
@@ -48,13 +49,14 @@
         sendUserData(nameInp, emailInp, passInp);
     });
     async function sendUserData(nameInp, emailInp, passInp){
+
         let updata = {
             name : nameInp.value,
             email: emailInp.value,
             pass : passInp.value
         }
         let cfg = {
-            method: "POST",
+            method: "GET",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(updata)
         }
@@ -62,6 +64,7 @@
         let res = await fetch(url, cfg);
         let data = await res.text();
         console.log(data);
+
     }
 
     

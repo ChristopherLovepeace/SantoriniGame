@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Santorini Multi-Player</title>
+
+
     <link rel="stylesheet" href="css/client.css">
 </head>
     
@@ -16,9 +18,11 @@
         </select>
     </div>
 
+
     <h1>Santorini</h1>
     <div id="div01" class="module">
         <div id="div02" class="container">
+
             <h2 id="LOG_IN">Log-in</h2>
             <hr>
             <p id="WELCOME">Welcome to our Santorini implementation!</p>
@@ -29,6 +33,7 @@
             <br>
             <label id="PASS" for="passInp"><b>Password:</b></label><br>
             <input type="password" placeholder="Enter Password" id="passInp" required>
+
             <input type="checkbox" onclick="showPass()">
             <br>
             <p id="passInpHelp"></p><br>
@@ -41,6 +46,7 @@
 
 </body>
 <script>
+
     let LOG_IN = document.getElementById("LOG_IN");
     let WELCOME = document.getElementById("WELCOME");
     let NAME = document.getElementById("NAME");
@@ -84,6 +90,7 @@
     async function sendUserData(nameInp, passInp){
         let updata = {
             name : nameInp.value,
+
             pass : passInp.value
         }
         let cfg = {
@@ -91,6 +98,7 @@
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(updata)
         }
+
         let url = "http://localhost:8080";
         let resp = await fetch(url, cfg);
         let data = await resp.text();
@@ -126,6 +134,7 @@
             return false;
         }
     }
+
 
     function showPass(){
         passInp = document.getElementById("passInp");
