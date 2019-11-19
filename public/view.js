@@ -1,15 +1,32 @@
-const service = new Service();
-
 //-------------------------------------------------------------------------------
 //Log in page
 //-------------------------------------------------------------------------------
-function createLoginView() {
+function tryLogin(){
+    if(isEmptySession("key")){
+        clearDiv(btnCont);
+        clearDiv(cont);
+        let loginView = createLoginView();
+        cont.appendChild(loginView);
+    }else{
+        let copyData = loadSessionArray("key")[0];
+        if(getUserRequest(copyData.id)){
+            displayUserView();
+        }else{
+            clearDiv(btnCont);
+            clearDiv(cont);
+            let loginView = createLoginView();
+            cont.appendChild(loginView);        
+        }
+    }
 
+}
+function createLoginView() {
     let template = document.querySelector("#loginTemplate");
     let view = document.importNode(template.content,true);
     let loginBtn = view.querySelector("#loginBtn");
     let signupBtn = view.querySelector("#signupBtn");
     let check = view.querySelector("#check");
+
     check.onclick = show;
     loginBtn.onclick = login;
     signupBtn.onclick = displaySignup;
@@ -27,30 +44,7 @@ async function login(evt){
     if(nameInp.checkValidity() && passInp.checkValidity()){
         writeHtml(nameInpHelp, "");
         writeHtml(passInpHelp, "");
-        let updata = {
-            name : nameInp.value,
-            pass : passInp.value
-        }
-        //login(nameInp.value,passInp.value);
-        
-        try{
-            let response = await service.postData(updata, `users/auth/${nameInp.value}`);
-            let data = await response.json();
-            if(response.status>202){
-                txtOut.innerHTML = data.msg;
-            }else{
-                txtOut.innerHTML = data.msg;
-                console.log("Welcome ", data.name);
-                //Save Session Info
-                sessionArray = [{"msg": data.msg,"id": data.id, "email": data.email, "name": data.name, "pass": data.pass}];
-                saveSessionArray("key", sessionArray);
-                displayUserView();
-            }
-        }catch(err){
-            console.log("Error in index", err);
-            txtOut.innerHTML = "Sorry, no valid data";
-        }
-        
+        loginRequest(nameInp.value,passInp.value);
     }else{
         writeHtml(nameInpHelp, "");
         writeHtml(passInpHelp, "");
@@ -94,31 +88,7 @@ function signup(evt){
         writeHtml(nameInpHelp, "");
         writeHtml(passInpHelp, "");
         writeHtml(emailInpHelp, "")
-        let updata = {
-            name : nameInp.value,
-            email: emailInp.value,
-            pass : passInp.value
-        }
-        console.log("Data Sent to server");
-        /*
-        try{
-            let response = await service.postData(updata, `users/`);
-            let data = await response.json();
-            if(response.status>202){
-                txtOut.innerHTML = data.msg;
-            }else{
-                txtOut.innerHTML = data.msg;
-                console.log("Welcome ", data.name);
-                //Save Session Info
-                sessionArray = [{"msg": data.msg,"id": data.id, "email": data.email, "name": data.name, "pass": data.pass}];
-                saveSessionArray("key", sessionArray);
-                displayUserView();
-            }
-        }catch(err){
-            console.log("Error in index", err);
-            txtOut.innerHTML = "Sorry, no valid data";
-        }
-        */
+        signupRequest(nameInp.value, emailInp.value, passInp.value);
     }else{
         writeHtml(nameInpHelp, "");
         writeHtml(passInpHelp, "");
@@ -146,102 +116,110 @@ function displayUserView(){
 //User view
 //-------------------------------------------------------------------------------
 function createUserView() {
-
+    let copyData = loadSessionArray("key")[0];
     let template = document.querySelector("#userViewTemplate");
     let view = document.importNode(template.content, true);
     let userUpdate = view.querySelector("#userUpdate");
-    let logOut = view.querySelector("#logOut");
+    let logout = view.querySelector("#logout");
     let gameStart = view.querySelector("#gameStart");
-    let gameJoin = view.querySelector("#gameJoin");
-    let gameOngoing = view.querySelector("#gameOngoing");
-    
-    
+    //let gameJoin = view.querySelector("#gameJoin");
+    //let gameOngoing = view.querySelector("#gameOngoing");
+    let welcome = view.querySelector("#welcome");
+    welcome.innerText = `Welcome ${copyData.name}`;
+
     userUpdate.onclick = displaySettings;
-    logOut.onclick = logOut;
+    logout.onclick = logOut;
     gameStart.onclick = startGame;
     //gameJoin.onclick = joinGame;
     //gameOngoing.onclick = resumeGame;
 
     return view;
 }
-function displaySettings(evt){
-
-}
 function logOut(evt){
-
+    sessionStorage.clear();
+    txtOut.innerHTML = "Logged out";
+    tryLogin();
+}
+function displaySettings(evt){
+    clearDiv(cont);
+    let settingsView = createSettingsView();
+    cont.appendChild(settingsView);
 }
 function startGame(evt){
+    //TODO
+    console.log("Game here");
 
 }
-
+//-------------------------------------------------------------------------------
+//Settings view
 //-------------------------------------------------------------------------------
 function createSettingsView() {
+    let copyData = loadSessionArray("key")[0];
+    //getUserRequest(copyData.id);
+    let template = document.querySelector("#userSettingsTemplate");
+    let view = document.importNode(template.content, true);
+    let name = view.querySelector("#name");
+    let email = view.querySelector("#email");
+    let userDel = view.querySelector("#userDel");
+    let nameInp = view.querySelector("#nameInp");
+    let nameInpBtn = view.querySelector("#nameInpBtn");
+    let emailInp = view.querySelector("#emailInp");
+    let emailInpBtn = view.querySelector("#emailInpBtn");
+    let passInp = view.querySelector("#passInp");
+    let passInpBtn = view.querySelector("#passInpBtn");
+    let check = view.querySelector("#check");
 
-    let container = document.createElement("div");
+    nameInp.placeholder = `${copyData.name}`;
+    emailInp.placeholder = `${copyData.email}`;
+    name.innerText = `${copyData.name}`;
+    email.innerText = `${copyData.email}`;
+    userDel.onclick = deleteUser;
+    nameInpBtn.onclick = updateName;
+    emailInpBtn.onclick = updateEmail;
+    passInpBtn.onclick = updatePass;
+    check.onclick = show;
 
-    container.showData = function(data) {
+    clearDiv(btnCont);
+    let backBtn = createElement(`<button id="backBtn">Back</button>`);
+    btnCont.appendChild(backBtn);
+    backBtn.addEventListener("click", function(evt){
+        displayUserView();
+    });
 
-        container.innerHTML = "";
-        container.innerHTML = `
-            <hr>
-            <h2>Settings</h2>
-            <hr>
-        `;
-
-        let main1 = document.createElement("div");
-        let main2 = document.createElement("div");
-        let html1 = `
-            <h2>Current Credentials:</h2>
-            <hr>
-            <p>Username: </p>
-            <p>${data.name}</p>
-            <br>
-            <p>Email: </p>
-            <p>${data.email}</p>
-            <br>
-            <label for="userDel"><b>Delete your account: </b></label><br>
-            <button id="userDel">Delete</button>
-            <br>
-        `;
-        let html2 = `
-            <h2>Update Credentials:</h2>
-            <hr>
-            <p>Username: </p>
-            <input type="text" placeholder=${data.name} id="nameInp" required minlength="3" maxlength="10" size="20">
-            <button id="nameInpBtn">Update</button>
-            <br>
-            <p>Email: </p>
-            <input type="email" placeholder=${data.email} id="emailInp" required minlength="3" size="20">
-            <button id="emailInpBtn">Update</button>
-            <br>
-            <p>Current password:</p>
-            <input type="password" placeholder="Enter Password" id="passInpOld" required minlength="8" maxlength="20" size="20"> 
-            <input type="checkbox" id="check">
-            <p>New password:</p>            
-            <input type="password" placeholder="Enter Password" id="passInpNew" required minlength="8" maxlength="20" size="20"> 
-            <input type="checkbox" id="check">
-            <button id="passInpBtn">Update</button>
-            <br>
-        
-        `;
-        main1.innerHTML = html1;
-        main2.innerHTML = html2;
-        //container.classList.add("");
-        container.appendChild(main1);
-        container.appendChild(main2);
-
-        let userDel = document.getElementById("userDel");
-        let nameInp = document.getElementById("nameInp");
-        let nameInpBtn = document.getElementById("nameInpBtn");
-        let emailInp = document.getElementById("emailInp");
-        let emailInpBtn = document.getElementById("emailInpBtn");
-        let passInpOld = document.getElementById("passInpOld");
-        let passInpNew = document.getElementById("passInpNew");
-        let passInpBtn = document.getElementById("passInpBtn");
-
-    }
-    return container;
+    return view;
 }
+function deleteUser(evt){
+    let copyData = loadSessionArray("key")[0];
+    if(window.confirm("Are you sure you want to delete your account?")){
+        deleteRequest(copyData.id);
+    }
+}
+function updateName(evt){
+    let copyData = loadSessionArray("key")[0];
+    if(nameInp.checkValidity()){
+        updateRequest(copyData.id, nameInp.value, copyData.email);
+    }
+}
+function updateEmail(evt){
+    let copyData = loadSessionArray("key")[0];
+    if(emailInp.checkValidity()){
+        updateRequest(copyData.id, copyData.name, emailInp.value);
+    }
+}
+function updatePass(evt){
+    passInp.type = "password";
+    check.checked = false;
+    let copyData = loadSessionArray("key")[0];
+    if(passInp.checkValidity()){
+        updateRequestPass(copyData.id, passInp.value);
+    }
+}
+
+
+//-------------------------------------------------------------------------------
+//Chat view
+//-------------------------------------------------------------------------------
+/*
 function createChatView() {
 
     let container = document.createElement("div");
@@ -281,3 +259,4 @@ function createChatView() {
     }
     return container;
 }
+*/

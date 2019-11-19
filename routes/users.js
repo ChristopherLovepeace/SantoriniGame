@@ -53,17 +53,26 @@ route.post("/auth/:user_name", async function(req,res,next){
 });
 route.put("/:user_id", async function(req, res, next){
     let updata = req.body;
-    let hash = crypto.createHash("sha256");
-    let pswhash = hash.update(updata.pass).digest("base64");
-    let result = await db.updateUser(updata.id, updata.email, updata.name, pswhash);
+    let result = await db.updateUser(updata.id, updata.email, updata.name);
     if(result){
         res.status(200).json({msg: "Account updated successfully!", id: result.user_id, email: result.user_email, name: result.user_name, pass: result.user_pswhash});
     }else{
         res.status(500).json({msg: "Failed to update "}).end();
     }
-
+});
+route.put("/pass/:user_id", async function(req, res, next){
+    let updata = req.body;
+    let hash = crypto.createHash("sha256");
+    let pswhash = hash.update(updata.pass).digest("base64");
+    let result = await db.updateUserPass(updata.id, pswhash);
+    if(result){
+        res.status(200).json({msg: "Account updated successfully!", id: result.user_id, email: result.user_email, name: result.user_name, pass: result.user_pswhash});
+    }else{
+        res.status(500).json({msg: "Failed to update."}).end();
+    }
 });
 //Chat functions
+/*
 route.get("/chat", async function(req, res, next){
     let result = await db.getChat();
     if(result){
@@ -81,4 +90,5 @@ route.post("/chat", async function(req,res,next){
         res.status(500).json({msg: "Failed to send message!"}).end();
     }
 });
+*/
 module.exports = route;

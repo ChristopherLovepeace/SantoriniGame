@@ -27,7 +27,7 @@
             <p id="nameInpHelp"></p>
             <br>
             <label for="passInp"><b>Password:</b></label><br>
-            <input type="password" placeholder="Enter Password" id="passInp" required minlength="1" maxlength="20" size="20">
+            <input type="password" placeholder="Enter Password" id="passInp" required minlength="3" maxlength="20" size="20">
             <input type="checkbox" id="check">
             <br>
             <p id="passInpHelp"></p><br>
@@ -67,12 +67,11 @@
             <div id="account">
                 <h3>My Account</h3>
                 <hr>
-                <label for="userUpdate"><b>Change Account settings:</b></label>
-                <br>
+                <label for="userUpdate"><b>Change Account settings:</b></label><br>
                 <button id="userUpdate">Settings</button>
                 <br>
-                <label for="logOut"><b>Log out: </b></label><br>
-                <button id="logOut">Log-out</button>
+                <label for="logout"><b>Log out:</b></label><br>
+                <button id="logout">Log-out</button>
                 <br>
             </div>
             <div id="games">
@@ -90,6 +89,43 @@
             </div>
         </div>
     </template>
+    <template id="userSettingsTemplate">
+            <div id="userSettings">
+                <hr>
+                <h2>Settings</h2>
+                <hr>
+                <div id="current">
+                    <h2>Current Credentials:</h2>
+                    <hr>
+                    <p>Username: </p>
+                    <p id="name"></p>
+                    <br>
+                    <p>Email: </p>
+                    <p id="email"></p>
+                    <br>
+                    <label for="userDel"><b>Delete your account: </b></label><br>
+                    <button id="userDel">Delete</button>
+                    <br>
+                </div>
+                <div id="update">
+                    <h2>Update Credentials:</h2>
+                    <hr>
+                    <p>Username: </p>
+                    <input type="text" id="nameInp" required minlength="3" maxlength="10" size="20">
+                    <button id="nameInpBtn">Update</button>
+                    <br>
+                    <p>Email: </p>
+                    <input type="email" id="emailInp" required minlength="3" size="20">
+                    <button id="emailInpBtn">Update</button>
+                    <br>
+                    <p>Password:</p>            
+                    <input type="password" placeholder="Enter Password" id="passInp" required minlength="8" maxlength="20" size="20"> 
+                    <input type="checkbox" id="check">
+                    <button id="passInpBtn">Update</button>
+                    <br>
+                </div>
+            </div>
+        </template>
 
 </body>
 <script>
@@ -97,290 +133,11 @@
     let btnCont = document.getElementById("btnCont");
     let txtOut = document.getElementById("txtOut");
     document.body.onload = (evt) => {
-
-        // Init
-        console.log("We are running");
-        let loginView = createLoginView();
-        //document.body.appendChild(loginView);
-        cont.appendChild(loginView);
+        //initialize first page
+        tryLogin();
     }
 
-    
-    //loadLogin();
-    function loadLogin(){
-        /*
-        clearDiv(cont);
-        let loginView = createLoginView();
-        cont.appendChild(loginView);
-        loginView.showData();
-        check.addEventListener("click", function(evt){
-            showPass(passInp);
-        });
-        loginBtn.addEventListener("click", async function(evt){
-            if(nameInp.checkValidity() && passInp.checkValidity()){
-                writeHtml(nameInpHelp, "");
-                writeHtml(passInpHelp, "");
-                let updata = {
-                    name : nameInp.value,
-                    pass : passInp.value
-                }
-                console.log("Data Sent to server");
-                try{
-                    let response = await model.postData(updata, `users/auth/${nameInp.value}`);
-                    let data = await response.json();
-                    if(response.status>202){
-                        txtOut.innerHTML = data.msg;
-                    }else{
-                        txtOut.innerHTML = data.msg;
-                        console.log("Welcome ", data.name);
-                        //Save Session Info
-                        sessionArray = [{"msg": data.msg,"id": data.id, "email": data.email, "name": data.name, "pass": data.pass}];
-                        saveSessionArray("key", sessionArray);
-                        
-                        loadUserView(data);
-                    }
-                }catch(err){
-                    console.log("Error in index", err);
-                    txtOut.innerHTML = "Sorry, no valid data";
-                }
-            }else{
-                writeHtml(nameInpHelp, "");
-                writeHtml(passInpHelp, "");
-                if(!nameInp.checkValidity()){
-                    nameInpHelp.innerHTML = "Enter a valid name";
-                }else{
-                    passInpHelp.innerHTML = "Enter a valid password";
-                }
-            }        
-        });
-        signupBtn.addEventListener("click", function(evt){
-            loadSignup();
-        });
-        clearDiv(btnCont);
-        */
-    }
-
-    function loadSignup(){
-        /*
-        clearDiv(cont);
-        let signupView = createSignupView();
-        cont.appendChild(signupView);
-        signupView.showData();
-        check.addEventListener("click", function(evt){
-            showPass(passInp);
-        });
-        loginBtn.addEventListener("click", function(evt){
-            loadLogin();
-        });
-        signupBtn.addEventListener("click", async function(evt){
-            
-            if(nameInp.checkValidity() && passInp.checkValidity() && emailInp.checkValidity()){
-                writeHtml(nameInpHelp, "");
-                writeHtml(passInpHelp, "");
-                writeHtml(emailInpHelp, "")
-                let updata = {
-                    name : nameInp.value,
-                    email: emailInp.value,
-                    pass : passInp.value
-                }
-                console.log("Data Sent to server");
-                try{
-                    let response = await model.postData(updata, `users/`);
-                    let data = await response.json();
-                    if(response.status>202){
-                        txtOut.innerHTML = data.msg;
-                    }else{
-                        txtOut.innerHTML = data.msg;
-                        console.log("Welcome ", data.name);
-                        //Save Session Info
-                        sessionArray = [{"msg": data.msg,"id": data.id, "email": data.email, "name": data.name, "pass": data.pass}];
-                        saveSessionArray("key", sessionArray);
-                        loadUserView(data);
-                    }
-                }catch(err){
-                    console.log("Error in index", err);
-                    txtOut.innerHTML = "Sorry, no valid data";
-                }
-            }else{
-                writeHtml(nameInpHelp, "");
-                writeHtml(passInpHelp, "");
-                writeHtml(emailInpHelp, "")
-                if(!nameInp.checkValidity()){
-                    writeHtml(nameInpHelp, "Enter a valid username");
-                }else if(!passInp.checkValidity()){
-                    writeHtml(passInpHelp, "Enter a valid password");
-                }else{
-                    writeHtml(emailInpHelp, "Enter a valid email");
-                }
-            }        
-        });
-        clearDiv(btnCont);
-        */
-    }
-
-    function loadUserView(copyData){
-        //TO DO
-        clearDiv(cont);
-        let userView = createUserView();
-        cont.appendChild(userView);
-        userView.showData(copyData);
-        userUpdate.addEventListener("click", function(evt){
-            loadSettingsView(copyData);
-        });
-        logOut.addEventListener("click", async function(evt){
-            txtOut.innerHTML = "";
-            localStorage.clear();
-            sessionStorage.clear();
-            loadLogin();
-        });
-        gameStart.addEventListener("click", function(evt){
-
-        });
-        gameJoin.addEventListener("click", async function(evt){
-
-        });
-        gameOngoing.addEventListener("click", async function(evt){
-
-        });
-        chat.addEventListener("click", function(evt){
-            loadChatView();
-        });
-        clearDiv(btnCont);
-    }
-
-    async function loadSettingsView(){
-        clearDiv(cont);
-        let settingsView = createSettingsView();
-        cont.appendChild(settingsView);
-        let copyData = loadSessionArray("key")[0];
-        try{
-            let response = await model.getData(`users/${copyData.id}`);
-            let data = await response.json();
-            if(response.status>202){
-                txtOut.innerHTML = data.msg;
-            }else{
-                txtOut.innerHTML = data.msg;
-                copyData = data;
-            }
-        }catch(err){
-            console.log("Error in index", err);
-            txtOut.innerHTML = "Sorry, no valid data";
-        }
-        settingsView.showData(copyData);
-        nameInpBtn.addEventListener("click", async function(evt){
-            txtOut.innerHTML = "";
-            if(nameInp.checkValidity()){
-                let updata = {
-                    id : copyData.id,
-                    email: copyData.email,
-                    name : nameInp.value,
-                    pass : copyData.pass
-                }
-                console.log(updata);
-                try{
-                    let response = await model.putData(updata, `users/${copyData.id}`);
-                    let data = await response.json();
-                    if(response.status>202){
-                        txtOut.innerHTML = data.msg + "username.";
-                    }else{
-                        txtOut.innerHTML = data.msg;
-                        //Save Session Info
-                        sessionArray = [{"msg": data.msg,"id": data.id, "email": data.email, "name": data.name, "pass": data.pass}];
-                        saveSessionArray("key", sessionArray);
-                        loadSettingsView();
-                    }
-                }catch(err){
-                    console.log("Error in index", err);
-                    txtOut.innerHTML = "Sorry, no valid data";
-                }
-            }
-        });
-        emailInpBtn.addEventListener("click", async function(evt){
-            txtOut.innerHTML = "";
-            if(emailInp.checkValidity()){
-                let updata = {
-                    id : copyData.id,
-                    email: emailInp.value,
-                    name : copyData.name,
-                    pass : copyData.pass
-                }
-                try{
-                    let response = await model.putData(updata, `users/${copyData.id}`);
-                    let data = await response.json();
-                    if(response.status>202){
-                        txtOut.innerHTML = data.msg + "email.";
-                    }else{
-                        txtOut.innerHTML = data.msg;
-                        //Save Session Info
-                        sessionArray = [{"msg": data.msg,"id": data.id, "email": data.email, "name": data.name, "pass": data.pass}];
-                        saveSessionArray("key", sessionArray);
-                        loadSettingsView();
-                        
-                    }
-                }catch(err){
-                    console.log("Error in index", err);
-                    txtOut.innerHTML = "Sorry, no valid data";
-                }
-            }
-        });
-        passInpBtn.addEventListener("click", async function(evt){
-            txtOut.innerHTML = "";
-            if(passInpOld.checkValidity() && passInpNew.checkValidity()){
-                //if(sessionStorage.getItem("key").pass == passInpOld.value){
-                    let updata = {
-                        id : copyData.id,
-                        email: copyData.email,
-                        name : copyData.name,
-                        pass : passInpNew.value
-                    }
-                    try{
-                        let response = await model.putData(updata, `users/${copyData.id}`);
-                        let data = await response.json();
-                        if(response.status>202){
-                            txtOut.innerHTML = data.msg;
-                        }else{
-                            txtOut.innerHTML = data.msg;
-                            //Save Session Info
-                            sessionArray = [{"msg": data.msg,"id": data.id, "email": data.email, "name": data.name, "pass": data.pass}];
-                            saveSessionArray("key", sessionArray);
-                            loadSettingsView();
-                        }
-                    }catch(err){
-                        console.log("Error in index", err);
-                        txtOut.innerHTML = "Sorry, no valid data";
-                    }
-                //}
-                
-            }
-        });
-        userDel.addEventListener("click", async function(evt){
-            if(window.confirm("Do you really want to delete your account?")){
-                let updata = {
-                    id : copyData.id
-                }
-                try{
-                    let response = await model.deleteData(updata, `users/${copyData.id}`);
-                    let data = await response.json();
-                    if(response.status>202){
-                        txtOut.innerHTML = data.msg;
-                    }else{
-                        txtOut.innerHTML = data.msg;
-                        sessionStorage.clear();
-                        loadLogin();
-                    }
-                }catch(err){
-                    console.log("Error in index", err);
-                    txtOut.innerHTML = "Sorry, no valid data";
-                }
-            }
-        });
-        clearDiv(btnCont);
-        let backBtn = createElement(`<button id="backBtn">Back</button>`);
-        btnCont.appendChild(backBtn);
-        backBtn.addEventListener("click", function(evt){
-            loadUserView(copyData);
-        });
-    }
+    /*
     async function loadChatView(){
         clearDiv(cont);
         let chatView = createChatView();
@@ -400,11 +157,14 @@
             loadUserView(copyData);
         });
     }
+    */
 
 
 </script>
 <script src="util.js"></script>
 <script src="view.js"></script>
 <script src="service.js"></script>
+<script src="requests.js"></script>
+
 
 </html>

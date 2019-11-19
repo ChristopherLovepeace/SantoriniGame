@@ -1,3 +1,4 @@
+const service = new Service();
 function Service() {
 
     // ----------------------------------------------
@@ -9,20 +10,18 @@ function Service() {
             }
             //try to load from server
             let response = await fetch(url, cfg);
-            //let data = await response.json();
-            //localStorage.setItem("pagedata", JSON.stringify(data));
-            resolve(response);
+            return response;
         }           
         catch(err) {              
-            console.log("Error in model: ", err);  
+            console.log("Error in service: ", err);  
             //try to load from local storage
             let pageArr = localStorage.getItem("pagedata");                
 
-            if (pageArr) {
-                resolve(JSON.parse(pageArr));
+            if(pageArr){
+                return JSON.parse(pageArr);
             }
             else {
-                reject(err);
+                return null;
             }                
         }        
     }
@@ -39,16 +38,14 @@ function Service() {
             }
             //try to load from server
             let response = await fetch(url, cfg);
-
-            resolve(response);
+            return response;
         }           
         catch(err) {              
-            console.log("Error in model: ", err);  
-            reject(err);     
+            console.log("Error in service: ", err);  
+            return null;
         }        
     }
     this.postData = async function(updata, url) {
-
         let body = null;
         if(updata != null){
             body = JSON.stringify(updata);
@@ -61,12 +58,11 @@ function Service() {
             }
             //try to load from server
             let response = await fetch(url, cfg);
-
-            resolve(response);
+            return response;
         }           
         catch(err) {              
-            console.log("Error in model: ", err);  
-            reject(err);     
+            console.log("Error in service: ", err);  
+            return null;    
         }        
     }
     this.putData = async function(updata, url) {
@@ -82,12 +78,11 @@ function Service() {
             }
             //try to load from server
             let response = await fetch(url, cfg);
-
-            resolve(response);
+            return response;
         }           
         catch(err) {              
-            console.log("Error in model: ", err);  
-            reject(err);     
+            console.log("Error in service: ", err);  
+            return null;
         }    
     }
 }
