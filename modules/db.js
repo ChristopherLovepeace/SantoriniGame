@@ -82,6 +82,72 @@ const db = function(dbConnectionString){
         getUserByName : getUserByName,
         updateUser : updateUser
     }
+
+
+    const getGameByID = async function(game_id){
+        let userData = null;
+        try{
+            let sql = 'SELECT * FROM users WHERE game_id = $1';
+            let values = [game_id];
+            userData = await runQuery(sql, values);
+        }catch(err){
+            console.log(err);
+        }
+        return userData;
+    }
+    const getGameByName = async function(game_name){
+        let userData = null;
+        try{
+            let sql = 'SELECT * FROM users WHERE game_name = $1';
+            let values = [game_name];
+            userData = await runQuery(sql, values);
+        }catch(err){
+            console.log(err);
+        }
+        return userData;
+    }
+    const createGame = async function(game_name, game_user_id, game_user_name, game_theme,game_id,game_state){
+        let userData = null;
+        try{
+            let sql = 'INSERT INTO games (game_name, game_user_id, game_user_name, game_theme,game_id,game_state) VALUES(DEFAULT, $1, $2, $3, $4, $5, $6) RETURNING *';
+            let values = [game_name, game_user_id, game_user_name, game_theme,game_id,game_state];
+            userData = await runQuery(sql,values);
+        }catch(err){
+            console.log(err);
+        }
+        return userData;
+    }
+    const deleteGame = async function(game_id){
+        let userData = null;
+        try{
+            let sql = 'DELETE FROM games WHERE game_id = $1 RETURNING *';
+            let values = [game_id];
+            userData = await runQuery(sql, values);
+        }catch(err){
+            console.log(err);
+        }
+        return userData;
+    }////////////////////////////////////////////////////////////////////////////////
+    const updateGame = async function(game_name, game_user_id, game_user_name, game_theme, game_id, game_state){
+        let userData = null;
+        try{
+            let sql = 'UPDATE games SET game_name = $1, game_user_id = $2, game_user_name = $3, game_theme = $4, game_state = $6 WHERE game_id = $5 RETURNING *';
+            let values = [game_name, game_user_id, game_user_name, game_theme, game_id, game_state];
+            userData = await runQuery(sql, values);
+        }catch(err){
+            console.log(err);
+        }
+        return userData;
+    }
+
+    return {
+        createGame : createGame,
+        deleteGame: deleteGame,
+        getGameByID : getGameByID,
+        getGameByName : getGameByName,
+        updateGame : updateGame
+    }
+
 }
 
 module.exports = db;
