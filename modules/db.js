@@ -15,7 +15,7 @@ const db = function(dbConnectionString){
             return response;
             
         }catch(err){
-            console.log("And error occured: ", err);
+            console.log("An error occured: ", err);
         }
         
     }
@@ -66,9 +66,30 @@ const db = function(dbConnectionString){
     const updateUser = async function(user_id, user_email, user_name, user_pswhash){
         let userData = null;
         try{
-            let sql = 'UPDATE users SET user_email = $2, user_name = $3 WHERE user_id = $1 RETURNING *';
-            let values = [user_id, user_email, user_name];
+            let sql = 'UPDATE users SET user_email = $2, user_name = $3, user_pswhash = $4 WHERE user_id = $1 RETURNING *';
+            let values = [user_id, user_email, user_name, user_pswhash];
             userData = await runQuery(sql, values);
+        }catch(err){
+            console.log(err);
+        }
+        return userData;
+    }
+    const getChat = async function(){
+        let userData = null;
+        try{
+            let sql = 'SELECT * FROM chat';
+            userData = await runQuery(sql);
+        }catch(err){
+            console.log(err);
+        }
+        return userData;
+    }
+    const postChat = async function(user_id, user_name, user_msg, user_date){
+        let userData = null;
+        try{
+            let sql = 'INSERT INTO chat (id, user_id, user_name, user_msg, user_date) VALUES(DEFAULT, $1, $2, $3, $4) RETURNING *';
+            let values = [user_id, user_name, user_msg, user_date];
+            userData = await runQuery(sql,values);
         }catch(err){
             console.log(err);
         }
@@ -80,7 +101,9 @@ const db = function(dbConnectionString){
         deleteUser : deleteUser,
         getUserByID : getUserByID,
         getUserByName : getUserByName,
-        updateUser : updateUser
+        updateUser : updateUser,
+        getChat : getChat,
+        postChat : postChat
     }
 }
 

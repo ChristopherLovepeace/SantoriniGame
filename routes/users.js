@@ -17,50 +17,68 @@ route.post("/", async function(req,res,next){
     let pswhash = hash.update(updata.pass).digest("base64");
     let result = await db.createUser(id, updata.email, updata.name, pswhash);
     if(result){
-        res.status(200).json({email: result.user_email, name: result.user_name, id: result.user_id});
+        res.status(200).json({msg: "Sign-up successful!", id: result.user_id, email: result.user_email, name: result.user_name, pass: result.user_pswhash});
     }else{
-        res.status(500).end();
+        res.status(500).json({msg: "Sign-up failed: User already exists!"}).end();
     }
 });
 route.delete("/:user_id", async function(req,res,next){
     let updata = req.body;
     let result = await db.deleteUser(updata.id);
     if(result){
-        res.status(200).json({msg: "Deleted"});
+        res.status(200).json({msg: "User has been deleted!"});
     }else{
-        res.status(500).json({msg: "Error"});
+        res.status(500).json({msg: "Error in deleting user!"});
     }
 });
 route.get("/:user_id", async function(req,res,next){
-    let updata = req.body;
-    let result = await db.getUserByID(updata.id);
+    let updata = req.params.user_id;
+    let result = await db.getUserByID(updata);
     if(result){
-        res.status(200).json({msg: "Got user", email: result.user_email, name: result.user_name});
+        res.status(200).json({msg: "Found user!", id: result.user_id, email: result.user_email, name: result.user_name, pass: result.user_pswhash});
     }else{
-        res.status(500).json({msg: "Error"});
+        res.status(500).json({msg: "Error in finding user!"});
     }
 });
-route.get("/auth/:user_name", async function(req,res,next){
+route.post("/auth/:user_name", async function(req,res,next){
     let updata = req.body;
     let hash = crypto.createHash("sha256");
     let pswhash = hash.update(updata.pass).digest("base64");
     let result = await authenticate(updata.name, pswhash);
     if(result){
-        res.status(200).json({msg: "Authentification successful", id: result.user_id, name: result.user_name});
+        res.status(200).json({msg: "Authentification successful!", id: result.user_id, email: result.user_email, name: result.user_name, pass: result.user_pswhash});
     }else{
-        res.status(500).json({msg: "Authentification failed"});
+        res.status(500).json({msg: "Authentification failed!"}).end();
     }
 });
 route.put("/:user_id", async function(req, res, next){
     let updata = req.body;
-    //let hash = crypto.createHash("sha256");
-    //let pswhash = hash.update(updata.pass).digest("base64");
-    let result = await db.updateUser(updata.id, updata.email, updata.name);
+    let hash = crypto.createHash("sha256");
+    let pswhash = hash.update(updata.pass).digest("base64");
+    let result = await db.updateUser(updata.id, updata.email, updata.name, pswhash);
     if(result){
-        res.status(200).json({email: result.user_email, name: result.user_name, id: result.user_id});
+        res.status(200).json({msg: "Account updated successfully!", id: result.user_id, email: result.user_email, name: result.user_name, pass: result.user_pswhash});
     }else{
-        res.status(500).end();
+        res.status(500).json({msg: "Failed to update "}).end();
     }
 
+});
+//Chat functions
+route.get("/chat", async function(req, res, next){
+    let result = await db.getChat();
+    if(result){
+        res.status(200).json({msg: "Loaded chat!", id: result.user_id, name: result.user_name, msg: result.user_msg, date: result.user_date});
+    }else{
+        res.status(500).json({msg: "Error in loading chat!"});
+    }
+});
+route.post("/chat", async function(req,res,next){
+    let updata = req.body;
+    let result = await postChat(updata.id, updata.name, updata.msg, updata.date);
+    if(result){
+        res.status(200).json({msg: "Message sent!", id: result.user_id, name: result.user_name, msg: result.user_msg, date: result.user_date});
+    }else{
+        res.status(500).json({msg: "Failed to send message!"}).end();
+    }
 });
 module.exports = route;
