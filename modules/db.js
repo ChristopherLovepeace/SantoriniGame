@@ -87,7 +87,7 @@ const db = function(dbConnectionString){
     const getGameByID = async function(game_id){
         let userData = null;
         try{
-            let sql = 'SELECT * FROM users WHERE game_id = $1';
+            let sql = 'SELECT * FROM games WHERE game_id = $1';
             let values = [game_id];
             userData = await runQuery(sql, values);
         }catch(err){
@@ -98,7 +98,7 @@ const db = function(dbConnectionString){
     const getGameByName = async function(game_name){
         let userData = null;
         try{
-            let sql = 'SELECT * FROM users WHERE game_name = $1';
+            let sql = 'SELECT * FROM games WHERE game_name = $1';
             let values = [game_name];
             userData = await runQuery(sql, values);
         }catch(err){
