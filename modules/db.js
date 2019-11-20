@@ -85,6 +85,85 @@ const db = function(dbConnectionString){
         }
         return userData;
     }
+    //-------------------------------------------------------------------
+    const getGameByUserID = async function(user_id){
+        let gameData = null;
+        try{
+            let sql = 'SELECT * FROM test WHERE user_id = $1';
+            let values = [user_id];
+            gameData = await runQuery(sql, values);
+        }catch(err){
+            console.log(err);
+        }
+        return gameData;
+    }
+    const getGameByGameID = async function(game_id){
+        let gameData = null;
+        try{
+            let sql = 'SELECT * FROM test WHERE game_id = $1';
+            let values = [game_id];
+            gameData = await runQuery(sql, values);
+        }catch(err){
+            console.log(err);
+        }
+        return gameData;
+    }
+    const createGame = async function(game_id, game_name, game_user_id, game_user_name, game_state, game_type){
+        let gameData = null;
+        try{
+            let sql = 'INSERT INTO test (id, game_id, game_name, game_user_id, game_user_name, game_state, game_type) VALUES(DEFAULT, $1, $2, $3, $4, $5, $6) RETURNING *';
+            let values = [game_id, game_name, game_user_id, game_user_name, game_state, game_type];
+            userData = await runQuery(sql,values);
+        }catch(err){
+            console.log(err);
+        }
+        return gameData;
+    }
+    const deleteGame = async function(game_id){
+        let gameData = null;
+        try{
+            let sql = 'DELETE FROM test WHERE game_id = $1 RETURNING *';
+            let values = [game_id];
+            gameData = await runQuery(sql, values);
+        }catch(err){
+            console.log(err);
+        }
+        return gameData;
+    }
+    const updateGameState = async function(game_id, game_state){
+        let gameData = null;
+        try{
+            let sql = 'UPDATE test SET game_state = $2 WHERE game_id = $1 RETURNING *';
+            let values = [game_id, game_state];
+            gameData = await runQuery(sql, values);
+        }catch(err){
+            console.log(err);
+        }
+        return gameData;
+    }
+    const updateGameType = async function(game_id, game_type){
+        let gameData = null;
+        try{
+            let sql = 'UPDATE test SET game_type = $2 WHERE game_id = $1 RETURNING *';
+            let values = [game_id, game_type];
+            gameData = await runQuery(sql, values);
+        }catch(err){
+            console.log(err);
+        }
+        return gameData;
+    }
+    const updateGameName = async function(game_id, game_name){
+        let gameData = null;
+        try{
+            let sql = 'UPDATE test SET game_name = $2 WHERE game_id = $1 RETURNING *';
+            let values = [game_id, game_name];
+            gameData = await runQuery(sql, values);
+        }catch(err){
+            console.log(err);
+        }
+        return gameData;
+    }
+
 
     return {
         createUser : createUser,
@@ -92,7 +171,15 @@ const db = function(dbConnectionString){
         getUserByID : getUserByID,
         getUserByName : getUserByName,
         updateUser : updateUser,
-        updateUserPass : updateUserPass
+        updateUserPass : updateUserPass,
+        //-------------------------------
+        getGameByUserID : getGameByUserID,
+        getGameByGameID : getGameByGameID,
+        createGame : createGame,
+        deleteGame : deleteGame,
+        updateGameState : updateGameState,
+        updateGameType : updateGameType,
+        updateGameName : updateGameName
     }
 }
 

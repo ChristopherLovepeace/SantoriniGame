@@ -214,49 +214,6 @@ function updatePass(evt){
         updateRequestPass(copyData.id, passInp.value);
     }
 }
-
-
 //-------------------------------------------------------------------------------
-//Chat view
+//Game view
 //-------------------------------------------------------------------------------
-/*
-function createChatView() {
-
-    let container = document.createElement("div");
-
-    container.showData = function(data) {
-
-        container.innerHTML = "";
-        container.innerHTML = `
-            <hr>
-            <h2>Global Text-chat</h2>
-            <hr>
-        `;
-
-        let main = document.createElement("div");
-        let inner = document.createElement("div");
-        let chat = document.createElement("div");
-        chat.id = "chat";
-        chat.innerHTML = `
-            <p>loading...</p>
-        `;
-        let msg = document.createElement("div");
-        msg.innerHTML = `
-            <hr>
-            <p>Type your message here: </p>
-            <input type="text" id="inpText" required minlength="1" maxlength="100" size="100">
-            <button id="send">Send</button>
-            <br>
-        `;
-        inner.appendChild(chat);
-        inner.appendChild(msg);
-        main.appendChild(inner);
-        //container.classList.add("");
-        container.appendChild(main);
-        
-        let inpText = document.getElementById("inpText");
-        let send = document.getElementById("send");
-    }
-    return container;
-}
-*/
