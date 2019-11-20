@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+   
+    <title>Santorini Online</title>
+</head>
+    
+<body>
+    <div id="header">
+        <h1>Santorini Online</h1>
+        <div id="btnCont"></div>
+    </div>
+    <div id="container"></div>
+    <h2 id="txtOut"></h2>
+
+    <template id="loginTemplate">
+        <div id="loginForm">
+            <hr>
+            <h1>Log-in</h1>
+            <hr>
+            <p>Welcome to our Santorini implementation!</p>
+            <label for="nameInp"><b>Username:</b></label>
+            <br>
+            <input type="text" placeholder="Enter Username" id="nameInp" required minlength="3" maxlength="10" size="20">
+            <p id="nameInpHelp"></p>
+            <br>
+            <label for="passInp"><b>Password:</b></label><br>
+            <input type="password" placeholder="Enter Password" id="passInp" required minlength="3" maxlength="20" size="20">
+            <input type="checkbox" id="check">
+            <br>
+            <p id="passInpHelp"></p><br>
+            <button id="loginBtn">Log-in</button>
+            <p>Don't have an account? <button id="signupBtn">Sign-up</button></p>
+        </div>
+    </template>
+    <template id="signupTemplate">
+        <div id="signupForm">
+            <hr>
+            <h1>Sign-up</h1>
+            <hr>
+            <p>Welcome to our Santorini implementation!</p>
+            <label for="nameInp"><b>Username (3 to 10 characters):</b></label>
+            <br>
+            <input type="text" placeholder="Enter Username" id="nameInp" required minlength="3" maxlength="10" size="20">
+            <p id="nameInpHelp"></p>
+            <br>
+            <label for="emailInp"><b>Email:</b></label><br>
+            <input type="email" placeholder="Enter Email" id="emailInp" required minlength="3" size="20">
+            <p id="emailInpHelp"></p>
+            <br>
+            <label for="passInp"><b>Password (8 to 20 characters):</b></label><br>
+            <input type="password" placeholder="Enter Password" id="passInp" required minlength="8" maxlength="20" size="20"> 
+            <input type="checkbox" id="check">
+            <br>
+            <p id="passInpHelp"></p><br>
+            <p>Already have an account?<button id="loginBtn">Log-in</button></p>
+            <button id="signupBtn">Sign-up</button>
+        </div>
+    </template>
+    <template id="userViewTemplate">
+        <div id="userView">
+            <hr>
+            <h2 id="welcome"></h2>
+            <hr>
+            <div id="account">
+                <h3>My Account</h3>
+                <hr>
+                <label for="userUpdate"><b>Change Account settings:</b></label><br>
+                <button id="userUpdate">Settings</button>
+                <br>
+                <label for="logout"><b>Log out:</b></label><br>
+                <button id="logout">Log-out</button>
+                <br>
+            </div>
+            <div id="games">
+                <h3>My Games</h3>
+                <hr>
+                <label for="gameStart"><b>Start a game: </b></label><br>
+                <button id="gameStart">Start Game</button>
+                <br>
+                <label for="gameJoin"><b>Browse public and private games: </b></label><br>
+                <button id="gameJoin">Join Game</button>
+                <br>
+                <label for="gameOngoing"><b>Browse public and private games you are taking part in: </b></label><br>
+                <button id="gameOngoing">Ongoing Games</button>
+                <br>
+            </div>
+        </div>
+    </template>
+    <template id="userSettingsTemplate">
+            <div id="userSettings">
+                <hr>
+                <h2>Settings</h2>
+                <hr>
+                <div id="current">
+                    <h2>Current Credentials:</h2>
+                    <hr>
+                    <p>Username: </p>
+                    <p id="name"></p>
+                    <br>
+                    <p>Email: </p>
+                    <p id="email"></p>
+                    <br>
+                    <label for="userDel"><b>Delete your account: </b></label><br>
+                    <button id="userDel">Delete</button>
+                    <br>
+                </div>
+                <div id="update">
+                    <h2>Update Credentials:</h2>
+                    <hr>
+                    <p>Username: </p>
+                    <input type="text" id="nameInp" required minlength="3" maxlength="10" size="20">
+                    <button id="nameInpBtn">Update</button>
+                    <br>
+                    <p>Email: </p>
+                    <input type="email" id="emailInp" required minlength="3" size="20">
+                    <button id="emailInpBtn">Update</button>
+                    <br>
+                    <p>Password:</p>            
+                    <input type="password" placeholder="Enter Password" id="passInp" required minlength="8" maxlength="20" size="20"> 
+                    <input type="checkbox" id="check">
+                    <button id="passInpBtn">Update</button>
+                    <br>
+                </div>
+            </div>
+        </template>
+
+</body>
+<script>
+    let cont = document.getElementById("container");
+    let btnCont = document.getElementById("btnCont");
+    let txtOut = document.getElementById("txtOut");
+    document.body.onload = (evt) => {
+        //initialize first page
+        tryLogin();
+    }
+
+    /*
+    async function loadChatView(){
+        clearDiv(cont);
+        let chatView = createChatView();
+        cont.appendChild(chatView);
+        let copyData = loadSessionArray("key")[0];
+        chatView.showData(copyData);
+
+        send.addEventListener("click", function(evt){
+            if(inpText.value!=null){
+                chat.innerHTML +=`<p>${copyData.name}: "${inpText.value}"</p>`;
+            }
+        });
+        clearDiv(btnCont);
+        let backBtn = createElement(`<button id="backBtn">Back</button>`);
+        btnCont.appendChild(backBtn);
+        backBtn.addEventListener("click", function(evt){
+            loadUserView(copyData);
+        });
+    }
+    */
+
+
+</script>
+<script src="util.js"></script>
+<script src="view.js"></script>
+<script src="service.js"></script>
+<script src="requests.js"></script>
+
+
+</html>
