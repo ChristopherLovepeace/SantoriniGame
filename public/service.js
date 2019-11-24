@@ -15,6 +15,7 @@ function Service() {
         catch(err) {              
             console.log("Error in service: ", err);  
             //try to load from local storage
+            /*
             let pageArr = localStorage.getItem("pagedata");                
 
             if(pageArr){
@@ -22,7 +23,8 @@ function Service() {
             }
             else {
                 return null;
-            }                
+            }
+            */                
         }        
     }
     this.deleteData = async function(updata, url) {

@@ -88,11 +88,13 @@ c.addEventListener('click', function(event) {
     var my = Math.floor((event.clientY - c.offsetTop) / tile);
 
     //checks if the clicked cell is vacant
-    let isVacant = true;
+    let isVacant = false;
     for(let i of player) {
         if(i.x == mx && i.y == my) {
             isVacant = false;
             break;
+        }else{
+            isVacant = true;
         }
     }
 
@@ -129,7 +131,7 @@ c.addEventListener('click', function(event) {
 
 //listener for mouse movement on canvas
 c.addEventListener('mousemove', function yo(u) {
-    update()
+    update();
     var mx = Math.floor((event.clientX - c.offsetLeft) / tile);
     var my = Math.floor((event.clientY - c.offsetTop) / tile);
     ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
@@ -151,27 +153,3 @@ c.addEventListener('mousemove', function yo(u) {
 });
 
 update()
-
-
-//var image = new Image();
-//image.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjhNuIkFLnbGFuqsqawP9iYPer5t_NYlo1rsyXZSZHhNDgKk7iUg";
-//ctx.drawImage(image,0,0,100,100,c.width,c.height, -50,100,100);
-
-
-
-//console.log(arr);
-
-/* idk assssss
-
-function show_image(src, width, height, alt) {
-    var img = document.createElement("img");
-    img.src = "images/floorImg0";
-    img.width = 64;
-    img.height = 64;
-    img.alt = "kys";
-
-    // This next line will just add it to the <body> tag
-    document.body.appendChild(img);
-}
-
-show_image("images/floorImg0",64,64,"kys")*/

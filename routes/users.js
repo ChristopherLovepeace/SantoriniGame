@@ -71,24 +71,5 @@ route.put("/pass/:user_id", async function(req, res, next){
         res.status(500).json({msg: "Failed to update."}).end();
     }
 });
-//Chat functions
-/*
-route.get("/chat", async function(req, res, next){
-    let result = await db.getChat();
-    if(result){
-        res.status(200).json({msg: "Loaded chat!", id: result.user_id, name: result.user_name, msg: result.user_msg, date: result.user_date});
-    }else{
-        res.status(500).json({msg: "Error in loading chat!"});
-    }
-});
-route.post("/chat", async function(req,res,next){
-    let updata = req.body;
-    let result = await postChat(updata.id, updata.name, updata.msg, updata.date);
-    if(result){
-        res.status(200).json({msg: "Message sent!", id: result.user_id, name: result.user_name, msg: result.user_msg, date: result.user_date});
-    }else{
-        res.status(500).json({msg: "Failed to send message!"}).end();
-    }
-});
-*/
+
 module.exports = route;
