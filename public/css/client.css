@@ -1,61 +1,47 @@
+
 body{
-    background-color: cornflowerblue;
+    background-color: rgb(20, 124, 216);
+    font-family: 'Gill Sans', 'Gill Sans MT','Trebuchet MS', sans-serif;
+    text-align: center;
+  
     
 }
-select{
-    position: relative;
-    font-size: medium;
-    border-radius: 1px;
-    z-index: 1;
-}
-p, h2, label{
-    color: darkslategray;
-    text-align: center;
-}
-h1{
-    color: rgb(255, 255, 255);
-    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
-    text-align: center;
-    position: relative;
-    font-size: 5em;
-    margin: 0px;
-}
-button{
-    margin: 1px;
-    padding: 10px;
-    color: rgb(0, 0, 0);
-}
-hr{
-    border: 1px dotted rgb(168, 6, 6);
-    margin: 10px;
-}
-#div00{
-    background-color: rgb(108, 185, 138);
-    border-radius: 4px;
-    position: absolute;
-    top: 2em;
-    left: 2em;
-    border: 2px double rgb(0, 0, 0);
-    text-align: center;
-    width: 4em;
-    height: 2em;
 
-}
-.container{
-    padding: 20px;
-    background-color: lightgreen;
-    border-radius: 20px;
-    margin: 5% auto 20% auto;
-        border: 5px double black;
-    width: 30%;
-}
+#header {
+    color: #ffffff; 
+    margin: auto;
+    font-size: 30px;
+    max-width: 600px;
+    text-shadow: 5px 5px 5px  #313131;
+    }
 
- 
+    #loginForm {
+        background-color: rgb(57, 156, 65);
+        color: white;
+        border: groove 5px;
+        border-radius: 0px 0px 30px 30px;
+        max-width: 600px;
+        margin: auto;
+    
+    }
 
-#nameInpHelp, #passInpHelp{
-    size: 11px;
-    color: rgb(67, 135, 190);
-    margin: 0px;
-}
 
+   #signupForm { 
+       background-color: rgb(57, 156, 65);
+    color: white;
+    border: groove 5px;
+    border-radius: 0px 0px 30px 30px;
+    max-width: 600px;
+    margin: auto;
+
+   }
+
+    #check {
+        margin: auto;
+
+    }
+
+   p {
+       color: black;
+   }
 
