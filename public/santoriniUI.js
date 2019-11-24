@@ -1,5 +1,12 @@
-let c = document.getElementById("myCanvas");
-let ctx = c.getContext("2d");
+
+
+function runGame(){
+
+    let template = document.querySelector("#gameTemplate");
+    let view = document.importNode(template.content, true);
+    let canvas = view.querySelector("#gameCanvas");
+    let ctx = canvas.getContext("2d");
+    
 const tile = 128;
 
 let turn = 0;
@@ -140,3 +147,5 @@ function show_image(src, width, height, alt) {
 }
 
 show_image("images/floorImg0",64,64,"kys")*/
+
+}
