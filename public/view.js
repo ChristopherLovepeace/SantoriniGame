@@ -411,7 +411,6 @@ function createGameStartView(){
             gametheme = 2;
         }
         let gameusershare = null;
-        //let increaseGameUsers = false;
         if(isPrivate){
             if(nameInp.checkValidity() && shareInp.checkValidity()){
                 gameusershare = shareInp.value;
@@ -455,14 +454,12 @@ function createGamePlayView(gameid){
         if(gameusers.indexOf(copyData.name)==-1){
             gameusers.push(copyData.name);
             await updateGameUsersRequest(data.result.game_id, gameusers, copyData.name);
-            //return;
         }  
     }
-    runGame();
+    runGame(gameid);
     async function decreaseGameUsers(gameid, copyData){
         let data = await getGameByGameID(gameid);
         let gameusers = data.result.game_users.filter(name => name != copyData.name);
-        console.log(gameusers);
         await updateGameUsersRequest(data.result.game_id, gameusers, copyData.name);
     }
     let interval = setInterval(function (){
