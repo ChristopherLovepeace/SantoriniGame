@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    
+    <link rel="stylesheet" href="css/client.css">
     <title>Santorini Online</title>
 </head>
     
@@ -80,8 +80,8 @@
                 <label for="gameStart"><b>Start a game: </b></label><br>
                 <button id="gameStart">Start Game</button>
                 <br>
-                <label for="gameJoin"><b>Join a game by URL: </b></label><br>
-                <button id="gameJoin">Join Game</button>
+                <label for="urlJoin"><b>Join a game by URL: </b></label><br>
+                <input type="text" id="urlInp" required minlength="10" maxlength="30" size="30"><button id="gameJoin">Join Game</button>
                 <br>
                 <label for="gamePrivate"><b>Browse your private games: </b></label><br>
                 <button id="gamePrivate">Private Games</button>
@@ -140,6 +140,8 @@
                 <select id="selectTheme">
                     <option value="light">light</option>
                     <option value="dark">dark</option>
+                    <option value="lava">lavaworld</option>
+                    <option value="ice">iceworld</option>
                 </select>
                 <br>
                 <label for="selectType">Set type of game: </label>
@@ -168,6 +170,7 @@
             <div id="gameView">
                 <div id="game">
                     <canvas id="gameCanvas" width="400" height="400" style="border:0px solid #d3d3d3;"></canvas>
+                    <p>Share with a friend: </p><p id="shareURL"></p>
                 </div>
                 <div id="chat">
                     <hr>

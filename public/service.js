@@ -13,18 +13,7 @@ function Service() {
             return response;
         }           
         catch(err) {              
-            console.log("Error in service: ", err);  
-            //try to load from local storage
-            /*
-            let pageArr = localStorage.getItem("pagedata");                
-
-            if(pageArr){
-                return JSON.parse(pageArr);
-            }
-            else {
-                return null;
-            }
-            */                
+            console.log("Error in service: ", err);           
         }        
     }
     this.deleteData = async function(updata, url) {

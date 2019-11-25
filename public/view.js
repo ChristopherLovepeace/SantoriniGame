@@ -154,8 +154,12 @@ function startGame(evt){
 }
 
 function joinGameURL(evt){
-    //TODO
-    console.log("Joining game");
+    let urlInp = document.querySelector("#urlInp");
+    if(urlInp.checkValidity()){
+        let url = urlInp.value;
+        let gameid = url.slice(url.indexOf("/")+1);
+        joinGame(gameid);
+    }
 }
 
 function displayPublic(evt){
@@ -447,6 +451,8 @@ function createGamePlayView(gameid){
     let view = document.importNode(template.content, true);
     let textInp = view.querySelector("#textInp");
     let send = view.querySelector("#send");
+    let shareURL = view.querySelector("#shareURL");
+    shareURL.innerText = `santorinigame.com/${gameid}`;
     increaseGameUsers(gameid, copyData);
     async function increaseGameUsers(gameid, copyData){
         let data = await getGameByGameID(gameid);
