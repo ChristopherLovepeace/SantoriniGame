@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-   
+    <link rel="stylesheet" href="css/client.css">
     <title>Santorini Online</title>
 </head>
     
@@ -27,7 +27,7 @@
             <p id="nameInpHelp"></p>
             <br>
             <label for="passInp"><b>Password:</b></label><br>
-            <input type="password" placeholder="Enter Password" id="passInp" required minlength="3" maxlength="20" size="20">
+            <input type="password" placeholder="Enter Password" id="passInp" required minlength="3" size="20">
             <input type="checkbox" id="check">
             <br>
             <p id="passInpHelp"></p><br>
@@ -47,11 +47,11 @@
             <p id="nameInpHelp"></p>
             <br>
             <label for="emailInp"><b>Email:</b></label><br>
-            <input type="email" placeholder="Enter Email" id="emailInp" required minlength="3" size="20">
+            <input type="email" placeholder="Enter Email" id="emailInp" required minlength="3" maxlength="20" size="20">
             <p id="emailInpHelp"></p>
             <br>
-            <label for="passInp"><b>Password (8 to 20 characters):</b></label><br>
-            <input type="password" placeholder="Enter Password" id="passInp" required minlength="8" maxlength="20" size="20"> 
+            <label for="passInp"><b>Password (min 8 characters):</b></label><br>
+            <input type="password" placeholder="Enter Password" id="passInp" required minlength="8" size="20"> 
             <input type="checkbox" id="check">
             <br>
             <p id="passInpHelp"></p><br>
@@ -80,11 +80,14 @@
                 <label for="gameStart"><b>Start a game: </b></label><br>
                 <button id="gameStart">Start Game</button>
                 <br>
-                <label for="gameJoin"><b>Browse public and private games: </b></label><br>
-                <button id="gameJoin">Join Game</button>
+                <label for="urlJoin"><b>Join a game by URL: </b></label><br>
+                <input type="text" id="urlInp" required minlength="10" maxlength="30" size="30"><button id="gameJoin">Join Game</button>
                 <br>
-                <label for="gameOngoing"><b>Browse public and private games you are taking part in: </b></label><br>
-                <button id="gameOngoing">Ongoing Games</button>
+                <label for="gamePrivate"><b>Browse your private games: </b></label><br>
+                <button id="gamePrivate">Private Games</button>
+                <br>
+                <label for="gamePublic"><b>Browse all games: </b></label><br>
+                <button id="gamePublic">Public Games</button>
                 <br>
             </div>
         </div>
@@ -115,15 +118,92 @@
                     <button id="nameInpBtn">Update</button>
                     <br>
                     <p>Email: </p>
-                    <input type="email" id="emailInp" required minlength="3" size="20">
+                    <input type="email" id="emailInp" required minlength="3" maxlength="20" size="20">
                     <button id="emailInpBtn">Update</button>
                     <br>
                     <p>Password:</p>            
-                    <input type="password" placeholder="Enter Password" id="passInp" required minlength="8" maxlength="20" size="20"> 
+                    <input type="password" placeholder="Enter Password" id="passInp" required minlength="8" size="20"> 
                     <input type="checkbox" id="check">
                     <button id="passInpBtn">Update</button>
                     <br>
                 </div>
+            </div>
+        </template>
+        <template id="gameStartTemplate">
+            <div id="gameStartView">
+                <h2>Create a Game:</h2>
+                <hr>
+                <label for="nameInp">Enter game name: </label>
+                <input type="text" id="nameInp" required minlength="3" maxlength="20" size="20">
+                <br>
+                <label for="selectTheme">Set type of game: </label>
+                <select id="selectTheme">
+                    <option value="light">light</option>
+                    <option value="dark">dark</option>
+                    <option value="lava">lavaworld</option>
+                    <option value="ice">iceworld</option>
+                </select>
+                <br>
+                <label for="selectType">Set type of game: </label>
+                <select id="selectType">
+                    <option value="public">public</option>
+                    <option value="private">private</option>
+                </select>
+                <br>
+                <label for="shareInp">Enter the user who you want to share the game with: </label>
+                <input type="text" id="shareInp" size="20" disabled>
+                <br>
+                <label for="selectRounds">Select number of rounds: </label>
+                <select id="selectRounds">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+                <br>
+                <label for="checkEsc">Leaving Game ends play session: </label>
+                <input type="checkbox" id="checkEsc" name="Esc" value="esc"><br>
+                <label for="checkEmail">Game playable by email: </label>
+                <input type="checkbox" id="checkEmail" name="Email" value="email"><br>
+                <button id="play">Play!</button>
+                <br>
+            </div>
+        </template>
+        <template id="gameTemplate">
+            <div id="gameView">
+                <div id="game">
+                    <canvas id="gameCanvas" width="400" height="400" style="border:0px solid #d3d3d3;"></canvas>
+                    <p>Share with a friend: </p><p id="shareURL"></p>
+                </div>
+                <div id="chat">
+                    <hr>
+                    <h2>Santorini Text Chat</h2>
+                    <hr>
+                    <div id="chatDisplay">
+                        <ul id="chatList">
+                            <li>loading ...</li>
+                        </ul>
+                    </div>
+                    <div id="msgDisplay">
+                        <hr>
+                        <p>Type your message here: </p>
+                        <input type="text" id="textInp" required minlength="1" maxlength="80" size="80">
+                        <button id="send">Send</button>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template id="publicViewTemplate">
+            <div id="list">
+            </div>
+        </template>
+        <template id="privateViewTemplate">
+            <div id="listOwn">
+                <h3>Your games:</h3><br>
+            </div>
+            <div id="listShared">
+                <h3>Shared with you:</h3><br>
             </div>
         </template>
 
@@ -133,38 +213,19 @@
     let btnCont = document.getElementById("btnCont");
     let txtOut = document.getElementById("txtOut");
     document.body.onload = (evt) => {
-        //initialize first page
         tryLogin();
     }
 
-    /*
-    async function loadChatView(){
-        clearDiv(cont);
-        let chatView = createChatView();
-        cont.appendChild(chatView);
-        let copyData = loadSessionArray("key")[0];
-        chatView.showData(copyData);
-
-        send.addEventListener("click", function(evt){
-            if(inpText.value!=null){
-                chat.innerHTML +=`<p>${copyData.name}: "${inpText.value}"</p>`;
-            }
-        });
-        clearDiv(btnCont);
-        let backBtn = createElement(`<button id="backBtn">Back</button>`);
-        btnCont.appendChild(backBtn);
-        backBtn.addEventListener("click", function(evt){
-            loadUserView(copyData);
-        });
-    }
-    */
-
 
 </script>
-<script src="util.js"></script>
-<script src="view.js"></script>
-<script src="service.js"></script>
-<script src="requests.js"></script>
-
+<script src="js/util.js"></script>
+<script src="js/UI/loginUI.js"></script>
+<script src="js/UI/signupUI.js"></script>
+<script src="js/UI/userUI.js"></script>
+<script src="js/UI/gamelistUI.js"></script>
+<script src="js/UI/gamestartUI.js"></script>
+<script src="js/UI/santoriniUI.js"></script>
+<script src="js/service.js"></script>
+<script src="js/requests.js"></script>
 
 </html>
