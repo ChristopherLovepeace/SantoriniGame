@@ -105,29 +105,33 @@ h3{
     display: grid;
 }
 #gameView>#chat{
+    background-color: rgb(224, 224, 224);
     grid-area: chat;
     padding: 8px;
     text-align: left;    
     font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
     display: grid;
+    overflow: scroll;
 }
 #userSettings{ 
     background-color: rgb(57, 156, 65);
     color: white;
     border: groove 5px;
     border-radius: 30px 30px 30px 30px;
-    max-width: 600px;
+    padding: 10px;
     margin: auto;
     text-align: left;
     font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
     display: grid;
+}
+#gameStartView{ 
+    background-color: rgb(224, 224, 224);
 }
 #txtOut{
     float: inline-end;
     background-color: rgb(57, 156, 65);
     color: white;
     border-radius: 30px 30px 30px 30px;
-
 }
 #btnCont>button{
     position: relative;
@@ -137,5 +141,13 @@ h3{
     background-color: rgb(14, 170, 0);
     border: 2px solid rgb(137, 170, 122);
 }
-
+#list{
+    background-color: rgb(224, 224, 224);
+}
+#listOwn{
+    background-color: rgb(224, 224, 224);
+}
+#listShared{
+    background-color: rgb(224, 224, 224);
+}
   
