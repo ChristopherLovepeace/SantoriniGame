@@ -1,9 +1,11 @@
 
+
 body{
     
-    background-color: rgb(20, 124, 216);
+    background-color: rgb(86, 162, 228);
     font-family: 'Gill Sans', 'Gill Sans MT','Trebuchet MS', sans-serif;
     text-align: center;
+    background-image: url(http://getwallpapers.com/wallpaper/full/2/5/b/30105.jpg);
  
 } 
   
@@ -27,7 +29,7 @@ p {
         background-color: rgb(57, 156, 65);
         color: white;
         border: groove 5px;
-        border-radius: 0px 0px 30px 30px;
+        border-radius: 30px 30px 30px 30px;
         max-width: 600px;
         margin: auto;
     
@@ -41,6 +43,8 @@ p {
         border-radius: 10px;
         color: rgb(255, 255, 255);
         background: rgb(20, 124, 216);
+
+
     }
     #signupBtn {
         border: outset;
@@ -67,28 +71,50 @@ p {
         font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
     }
 
+    #signupForm { 
+        background-color: rgb(57, 156, 65);
+     color: white;
+     border: groove 5px;
+     border-radius: 30px 30px 30px 30px;
+     max-width: 600px;
+     margin: auto;
+ 
+    }
 
+h2 {
 
-   #signupForm { 
-       background-color: rgb(57, 156, 65);
-    color: white;
-    border: groove 5px;
-    border-radius: 0px 0px 30px 30px;
-    max-width: 600px;
-    margin: auto;
+    font-family:  Georgia, Times, 'Times New Roman', serif;
+    font-style: italic;
+}
+    
 
-   }
+h3 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
 
    #userView {
-
+        text-align: right;    
+        font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
         display: grid;
     }
 
-   #userSettings {
 
-       display: grid;
+   #userSettings {
+       
+        text-align: left;
+        font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+        display: grid;
    }
 
+#games {
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
 
+}
 
+template {
+    display: grid;
+    border: groove;
+    border-color: white;
+}
   
