@@ -1,14 +1,12 @@
 const service = new Service();
 function Service() {
 
-    // ----------------------------------------------
     this.getData = async function(url) {
         try {
             let cfg = {
                 method: "GET",
                 headers: { "Content-Type": "application/json" }
             }
-            //try to load from server
             let response = await fetch(url, cfg);
             return response;
         }           
@@ -27,7 +25,6 @@ function Service() {
                 headers: { "Content-Type": "application/json" },
                 body: body
             }
-            //try to load from server
             let response = await fetch(url, cfg);
             return response;
         }           
@@ -47,7 +44,6 @@ function Service() {
                 headers: { "Content-Type": "application/json" },
                 body: body
             }
-            //try to load from server
             let response = await fetch(url, cfg);
             return response;
         }           
@@ -67,7 +63,6 @@ function Service() {
                 headers: { "Content-Type": "application/json" },
                 body: body
             }
-            //try to load from server
             let response = await fetch(url, cfg);
             return response;
         }           

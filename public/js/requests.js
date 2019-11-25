@@ -10,7 +10,6 @@ async function loginRequest(name, pass){
             txtOut.innerHTML = `${response.status} ${data.msg}`;
         }else{
             txtOut.innerHTML = data.msg;
-            //Save Session Info
             sessionArray = [{"msg": data.msg,"id": data.id, "email": data.email, "name": data.name, "pass": data.pass}];
             saveSessionArray("key", sessionArray);
             displayUserView();
@@ -33,7 +32,6 @@ async function signupRequest(name, email, pass){
             txtOut.innerHTML = `${response.status} ${data.msg}`;
         }else{
             txtOut.innerHTML = data.msg;
-            //Save Session Info
             sessionArray = [{"msg": data.msg,"id": data.id, "email": data.email, "name": data.name, "pass": data.pass}];
             saveSessionArray("key", sessionArray);
             displayUserView();
@@ -56,7 +54,6 @@ async function updateRequest(id, name, email){
             txtOut.innerHTML = `${response.status} ${data.msg}`;
         }else{
             txtOut.innerHTML = data.msg;
-            //Save Session Info
             sessionArray = [{"msg": data.msg,"id": data.id, "email": data.email, "name": data.name, "pass": data.pass}];
             saveSessionArray("key", sessionArray);
             displaySettings();
@@ -78,7 +75,6 @@ async function updateRequestPass(id, pass){
             txtOut.innerHTML = `${response.status} ${data.msg}`;
         }else{
             txtOut.innerHTML = data.msg;
-            //Save Session Info
             sessionArray = [{"msg": data.msg,"id": data.id, "email": data.email, "name": data.name, "pass": data.pass}];
             saveSessionArray("key", sessionArray);
             displaySettings();
@@ -116,7 +112,6 @@ async function getUserRequest(id){
             return null;
         }else{
             txtOut.innerHTML = data.msg;
-            //Save Session Info
             sessionArray = [{"msg": data.msg,"id": data.id, "email": data.email, "name": data.name, "pass": data.pass}];
             saveSessionArray("key", sessionArray);
         }
@@ -237,6 +232,24 @@ async function updateGameUsersRequest(gameid, gameusers, username){
     let updata = {
         gameid : gameid,
         gameusers : gameusers,
+        username: username
+    }
+    try{
+        let response = await service.putData(updata, `games/users/${gameid}`);
+        let data = await response.json();
+        if(response.status>202){
+            txtOut.innerHTML = `${response.status} ${data.msg}`;
+        }else{
+            txtOut.innerHTML = data.msg;
+        }
+    }catch(err){
+        console.log("Error in requests", err);
+        txtOut.innerHTML = "Sorry, no valid data";
+    }
+}
+async function updateGameLastMoveRequest(gameid, username){
+    let updata = {
+        gameid : gameid,
         username: username
     }
     try{

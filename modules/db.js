@@ -25,12 +25,6 @@ const db = function(dbConnectionString){
             await client.connect();
             const res = await client.query(query, params);
             let response = res.rows;
-            /*
-            if(res.rows!=null && res.rows.length==1){
-                console.log(res.rows[0]);
-                response = res.rows[0];
-            }
-            */
             await client.end();
             return response;
             

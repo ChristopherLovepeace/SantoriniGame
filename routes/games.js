@@ -8,7 +8,6 @@ try{
 }
 const dbConnection = process.env.DATABASE_URL || secrets.env.DATABASE_URL;
 const db = require('../modules/db')(dbConnection);
-const authenticate = require('../modules/auth');
 const sessionChat = [];
 
 route.post("/", async function(req,res,next){
@@ -94,12 +93,6 @@ route.delete("/:game_id", async function(req,res,next){
         res.status(500).json({msg: "Error in deleting game!"}).end();
     }
 });
-//base/application/gameID/turnID
-/*
-route.get("/:gameID/:turnID", function(req,res,next){
-});
-*/
-// maybe put the chat in server.js?
 //CHAT
 route.post("/chat/:game_id", function(req,res,next){
     let updata = req.body;

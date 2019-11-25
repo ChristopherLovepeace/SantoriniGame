@@ -1,6 +1,6 @@
 let floors = ["#AAAAAA","#CCCCCC","#EEEEEE","#0000FF"];
 let ground = ["#55FF55", "#00DD00"];
-let arr = [];
+let gameStateArr = [];
 const tileSize = 80;
 let turn = 0;
 let moveChar = true;
@@ -24,9 +24,9 @@ async function runGame(gameid){
     writeTilesArray(data.result.game_state);
     function writeTilesArray(gamestate){
             for(let i = 0; i < 5; i++) {
-                arr.push([]);
+                gameStateArr.push([]);
                 for(let j = 0; j < 5; j++) {
-                    arr[i][j] = 0;
+                    gameStateArr[i][j] = 0;
                 }
             }
     }
@@ -49,7 +49,7 @@ async function runGame(gameid){
         for(var i = 0; i < 5; i++) {
             for(var j = 0; j < 5; j++) {
                 k += 1;
-                if(arr[i][j] > 0) ctx.fillStyle = floors[(arr[i][j])-1];
+                if(gameStateArr[i][j] > 0) ctx.fillStyle = floors[(gameStateArr[i][j])-1];
                 else if(k % 2 == 0) ctx.fillStyle = ground[0];
                 else ctx.fillStyle = ground[1];
                 ctx.fillRect(tileSize*j, tileSize*i, tileSize*j+tileSize, tileSize*i+tileSize);
@@ -109,7 +109,7 @@ async function runGame(gameid){
         }
 
         //allows for building on a cell
-        if(arr[my][mx] < 4 && placeBlock) arr[my][mx] += 1;
+        if(gameStateArr[my][mx] < 4 && placeBlock) gameStateArr[my][mx] += 1;
 
         //when its time to move a char
         if(moveChar && allPlaced) {
