@@ -1,6 +1,4 @@
-//-------------------------------------------------------------------------------
-//Log in page
-//-------------------------------------------------------------------------------
+/*
 function tryLogin(){
     if(isEmptySession("key")){
         clearDiv(btnCont);
@@ -40,7 +38,6 @@ function login(evt){
     let nameInp = document.querySelector("#nameInp");
     passInp.type = "password";
     check.checked = false;
-    // Validation and error msg
     if(nameInp.checkValidity() && passInp.checkValidity()){
         writeHtml(nameInpHelp, "");
         writeHtml(passInpHelp, "");
@@ -62,6 +59,7 @@ function displaySignup(evt){
     let signupView = createSignupView();
     cont.appendChild(signupView);
 }
+
 //-------------------------------------------------------------------------------
 //Sign up page
 //-------------------------------------------------------------------------------
@@ -112,6 +110,7 @@ function displayUserView(){
     let userView = createUserView();
     cont.appendChild(userView);    
 }
+
 //-------------------------------------------------------------------------------
 //User view
 //-------------------------------------------------------------------------------
@@ -235,6 +234,7 @@ function updatePass(evt){
         updateRequestPass(copyData.id, passInp.value);
     }
 }
+
 //-------------------------------------------------------------------------------
 //Public Games view
 //-------------------------------------------------------------------------------
@@ -413,6 +413,10 @@ function createGameStartView(){
         let gametheme = 1;
         if(selectTheme.value == "dark"){
             gametheme = 2;
+        }else if(selectTheme.value == "lava"){
+            gametheme = 3;
+        }else if(selectTheme.value == "ice"){
+            gametheme = 4;
         }
         let gameusershare = null;
         if(isPrivate){
@@ -512,3 +516,4 @@ function sendMsg(gameid, name){
         textInp.value ="";
     }
 }
+*/

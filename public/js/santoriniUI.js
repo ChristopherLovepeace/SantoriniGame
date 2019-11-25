@@ -18,28 +18,30 @@ player[3] = {x: -1, y: -1};
 
 
 async function runGame(gameid){
-    
-
     let data = await getGameByGameID(gameid);
     console.log(data.result);
     let canvas = document.querySelector("#gameCanvas");
     let ctx = canvas.getContext("2d");
     writeTilesArray(data.result.game_state);
     function writeTilesArray(gamestate){
-        
             for(let i = 0; i < 5; i++) {
                 arr.push([]);
                 for(let j = 0; j < 5; j++) {
                     arr[i][j] = 0;
                 }
             }
-        
     }
     pickTheme(data.result.game_theme);
     function pickTheme(theme){
         if(theme==2){
             floors=["#AAAAAA","#CCCCCC","#EEEEEE","#0303b2"];
             ground=["#005100", "#008c00"];
+        }else if(theme==3){
+            floors=["#AAAAAA","#CCCCCC","#EEEEEE","#0303b2"];
+            ground=["#f99c18", "#ea5515"];
+        }else if(theme==4){
+            floors=["#AAAAAA","#CCCCCC","#EEEEEE","#0303b2"];
+            ground=["#03c1c1", "#0772ed"];
         }
     }
     drawTiles();
